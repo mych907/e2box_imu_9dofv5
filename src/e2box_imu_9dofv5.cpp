@@ -1,15 +1,15 @@
-#include "e2box_imu_9dofv4.h"
+#include "e2box_imu_9dofv5.h"
 
-e2box_imu_9dofv4::e2box_imu_9dofv4()
+e2box_imu_9dofv5::e2box_imu_9dofv5()
 {
     Initialize();
 }
 
-e2box_imu_9dofv4::~e2box_imu_9dofv4()
+e2box_imu_9dofv5::~e2box_imu_9dofv5()
 {
 }
 
-void e2box_imu_9dofv4::Initialize(void)
+void e2box_imu_9dofv5::Initialize(void)
 {
     m_dwordCounterChecksumPass = 0;
     m_dwordCounterChecksumFail = 0;
@@ -27,7 +27,7 @@ void e2box_imu_9dofv4::Initialize(void)
     m_iRawDataIndex = 0;
 }
 
-void e2box_imu_9dofv4::ExtractData(unsigned char byteCurrent)
+void e2box_imu_9dofv5::ExtractData(unsigned char byteCurrent)
 {
     if(GetStatusHeaderDetect() == false){
         if(byteCurrent == 0x2A){	// mark *
@@ -48,7 +48,7 @@ void e2box_imu_9dofv4::ExtractData(unsigned char byteCurrent)
     }
 }
 
-bool e2box_imu_9dofv4::HandlingDataIMU(){
+bool e2box_imu_9dofv5::HandlingDataIMU(){
     if(GetStatusHeaderDetect() == false){
         InterpretGeneral();
         SetStatusUpdateData(true);
@@ -61,7 +61,7 @@ bool e2box_imu_9dofv4::HandlingDataIMU(){
     return true;
 }
 
-void e2box_imu_9dofv4::InterpretGeneral(void)
+void e2box_imu_9dofv5::InterpretGeneral(void)
 {
     char cBranch;
     sscanf(&m_acCopiedRawData[0],"%c",&cBranch);
@@ -76,7 +76,7 @@ void e2box_imu_9dofv4::InterpretGeneral(void)
     SetStatusUpdateData(true);
 }
 
-BOOL e2box_imu_9dofv4::CalcCheckSum(void)
+BOOL e2box_imu_9dofv5::CalcCheckSum(void)
 {
     sscanf(&m_acCopiedRawData[m_iRawDataIndex-3],"%x",&iChecksum);
 
@@ -89,7 +89,7 @@ BOOL e2box_imu_9dofv4::CalcCheckSum(void)
     else return false;
 }
 
-DWORD e2box_imu_9dofv4::CheckBYTEXOR(BYTE byteCompared1, BYTE byteCompared2)
+DWORD e2box_imu_9dofv5::CheckBYTEXOR(BYTE byteCompared1, BYTE byteCompared2)
 {
     BYTE byteMask = 0x80;
     BYTE byteResult = 0;
