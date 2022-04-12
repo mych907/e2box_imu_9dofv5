@@ -1,15 +1,15 @@
-#ifndef E2BOX_IMU_9DOFV4_H
-#define E2BOX_IMU_9DOFV4_H
+#ifndef E2BOX_IMU_9DOFV5_H
+#define E2BOX_IMU_9DOFV5_H
 
 #include "t_serial.h"
 #include "stdio.h"
 
-class e2box_imu_9dofv4
+class e2box_imu_9dofv5
 {
 
 public:
-    e2box_imu_9dofv4();
-    virtual ~e2box_imu_9dofv4();
+    e2box_imu_9dofv5();
+    virtual ~e2box_imu_9dofv5();
 
     t_serial serial;
 
