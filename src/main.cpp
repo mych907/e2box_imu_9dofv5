@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include "t_serial.h"
-#include "e2box_imu_9dofv4.h"
+#include "e2box_imu_9dofv5.h"
 #include "std_msgs/Float64MultiArray.h"
 #include "sensor_msgs/Imu.h"
 #include <iostream>
@@ -10,7 +10,7 @@
 
 using namespace std;
 
-e2box_imu_9dofv4 m_e2box_imu;
+e2box_imu_9dofv5 m_e2box_imu;
 
 ros::Publisher imu_pub;
 //std_msgs::Float64MultiArray imu_data;
@@ -56,7 +56,7 @@ void publishImuData(void)
         imu_data.header.stamp = ros::Time::now();
         imu_data.header.frame_id = "imu_link";
 
-        // e2box_imu_9dofV4 quaternion order : z, y, x, w
+        // e2box_imu_9dofV5 quaternion order : z, y, x, w
         imu_data.orientation.x = m_e2box_imu.m_dQuaternion[2];
         imu_data.orientation.y = m_e2box_imu.m_dQuaternion[1];
         imu_data.orientation.z = m_e2box_imu.m_dQuaternion[0];
@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
     std::string port;
     int baudrate;
 
-    nh.param<std::string>("port", port, "/dev/ttyUSB0");
+    nh.param<std::string>("port", port, "/dev/ttyTHS1");
     nh.param("baudrate", baudrate, 115200);
 
     if(!m_e2box_imu.serial.Open(const_cast<char*>(port.c_str()), baudrate)){
